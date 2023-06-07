@@ -1,0 +1,43 @@
+spring:
+  dataSource:
+    url: jdbc:postgresql://localhost:5433/pagination
+    driverClassName: org.postgresql.Driver
+    username: postgres
+    password: password
+  jpa:
+    hibernate:
+      ddlAuto: update
+    showSql: false
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    databasePlatform: org.hibernate.dialect.PostgreSQLDialect
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+## Corse Configuraiton:
+cors:
+  allowed-origins: http://localhost:4200
+  allowed-methods: GET,POST,PUT,PATH,DELETE,OPTIONS
+  allowed-headers: Origin,Access-Control-Allow-Origin,Content-Type,Accept,Jwt-Token,Authorization,Origin,Accept,X-Requested-With,Access-Control-Request-Method,Access-Control-Request-Headers
+  exposed-headers: Origin,Content-Type,Accept,Jwt-Token,Authorization,Access-Control-Allow-Origin,Access-Control-Allow-Credentials
+#  allowed-origins: "*"
+#  allowed-methods: "*"
+#  allowed-headers: "*"
+#  exposed-headers: "*"
+
+server:
+  port: 8085
+  error:
+    include-message: always
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    web:
+      exposure:
+        include: "*"
+
