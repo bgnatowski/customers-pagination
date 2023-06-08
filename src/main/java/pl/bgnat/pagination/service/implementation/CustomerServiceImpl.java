@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import pl.bgnat.pagination.controller.UpdateImageRequest;
 import pl.bgnat.pagination.domain.Customer;
 import pl.bgnat.pagination.repository.CustomerRepository;
 import pl.bgnat.pagination.service.CustomerService;
@@ -31,19 +32,35 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public Customer updateCustomer(Customer update) {
+	public Customer updateCustomerImage(Long id, Customer update) {
+		Customer customer = customerRepository.findById(id).get();
+		if(update.getImageUrl()!=null)
+			customer.setImageUrl(update.getImageUrl());
+		return customerRepository.save(customer);
+	}
+
+	@Override
+	public Customer updateCustomer(Long id, Customer update) {
 		log.info("Updating customer: {}", update);
-		Customer customer = customerRepository.findById(update.getId()).get();
-		customer.setFirstName(update.getFirstName());
-		customer.setLastName(update.getLastName());
-		customer.setUsername(update.getUsername());
-		customer.setEmail(update.getEmail());
-		customer.setGender(update.getGender());
-		customer.setDateOfBirth(customer.getDateOfBirth());
-		customer.setAddress(update.getAddress());
-		customer.setImageUrl(update.getImageUrl());
-		customer.setStatus(update.getStatus());
-		customer.setPhone(update.getPhone());
+		Customer customer = customerRepository.findById(id).get();
+		if(update.getFirstName()!=null)
+			customer.setFirstName(update.getFirstName());
+		if(update.getLastName()!=null)
+			customer.setLastName(update.getLastName());
+		if(update.getUsername()!=null)
+			customer.setUsername(update.getUsername());
+		if(update.getEmail()!=null)
+			customer.setEmail(update.getEmail());
+		if(update.getGender()!=null)
+			customer.setGender(update.getGender());
+		if(update.getDateOfBirth()!=null)
+			customer.setDateOfBirth(customer.getDateOfBirth());
+		if(update.getAddress()!=null)
+			customer.setAddress(update.getAddress());
+		if(update.getStatus()!=null)
+			customer.setStatus(update.getStatus());
+		if(update.getPhone()!=null)
+			customer.setPhone(update.getPhone());
 		return customerRepository.save(customer);
 	}
 

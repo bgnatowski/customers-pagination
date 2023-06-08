@@ -57,12 +57,28 @@ public class CustomerController {
 	public ResponseEntity<HttpResponse> updateCustomer(
 			@PathVariable("id") Long id,
 			@RequestBody Customer customer) {
-		Customer updatedCustomer = customerService.updateCustomer(customer);
+		Customer updatedCustomer = customerService.updateCustomer(id, customer);
 		return ResponseEntity.ok().body(
 				HttpResponse.builder()
 						.timeStamp(LocalDateTime.now().toString())
 						.data(Map.of("customer", updatedCustomer))
 						.message("Customer updated")
+						.status(HttpStatus.OK)
+						.statusCode(HttpStatus.OK.value())
+						.build()
+		);
+	}
+
+	@PatchMapping("/customer/{id}")
+	public ResponseEntity<HttpResponse> updateCustomerImage(
+			@PathVariable("id") Long id,
+			@RequestBody Customer customer) {
+		Customer updatedCustomer = customerService.updateCustomerImage(id, customer);
+		return ResponseEntity.ok().body(
+				HttpResponse.builder()
+						.timeStamp(LocalDateTime.now().toString())
+						.data(Map.of("customer", updatedCustomer))
+						.message("Customer image updated")
 						.status(HttpStatus.OK)
 						.statusCode(HttpStatus.OK.value())
 						.build()
