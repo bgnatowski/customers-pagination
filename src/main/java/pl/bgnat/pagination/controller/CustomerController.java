@@ -72,8 +72,8 @@ public class CustomerController {
 	@PatchMapping("/customer/{id}")
 	public ResponseEntity<HttpResponse> updateCustomerImage(
 			@PathVariable("id") Long id,
-			@RequestBody Customer customer) {
-		Customer updatedCustomer = customerService.updateCustomerImage(id, customer);
+			@RequestBody UpdateImageRequest updateImageRequest) {
+		Customer updatedCustomer = customerService.updateCustomerImage(id, updateImageRequest);
 		return ResponseEntity.ok().body(
 				HttpResponse.builder()
 						.timeStamp(LocalDateTime.now().toString())

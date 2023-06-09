@@ -32,10 +32,10 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public Customer updateCustomerImage(Long id, Customer update) {
+	public Customer updateCustomerImage(Long id, UpdateImageRequest updateImageRequest) {
 		Customer customer = customerRepository.findById(id).get();
-		if(update.getImageUrl()!=null)
-			customer.setImageUrl(update.getImageUrl());
+		if(updateImageRequest!=null && !updateImageRequest.imageUrl().isEmpty())
+			customer.setImageUrl(updateImageRequest.imageUrl());
 		return customerRepository.save(customer);
 	}
 

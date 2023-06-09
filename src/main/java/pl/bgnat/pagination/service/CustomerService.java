@@ -13,5 +13,5 @@ public interface CustomerService {
 
 	Customer getCustomer(Long id);
 	List<Customer> getCustomers();
-	Customer updateCustomerImage(Long id, Customer update);
+	Customer updateCustomerImage(Long id, UpdateImageRequest updateImageRequest);
 }
