@@ -10,4 +10,6 @@ import pl.bgnat.pagination.domain.Customer;
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
 	Page<Customer> findByFirstNameContainingIgnoreCaseOrderById(String name, Pageable pageable);
+
+	boolean existsCustomerByEmail(String email);
 }

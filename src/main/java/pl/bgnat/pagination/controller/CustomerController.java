@@ -4,13 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import pl.bgnat.pagination.domain.Customer;
-import pl.bgnat.pagination.domain.HttpResponse;
+import pl.bgnat.pagination.domain.*;
 import pl.bgnat.pagination.service.CustomerService;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -56,7 +55,7 @@ public class CustomerController {
 	@PutMapping("/customer/{id}")
 	public ResponseEntity<HttpResponse> updateCustomer(
 			@PathVariable("id") Long id,
-			@RequestBody Customer customer) {
+			@RequestBody CustomerUpdateRequest customer) {
 		Customer updatedCustomer = customerService.updateCustomer(id, customer);
 		return ResponseEntity.ok().body(
 				HttpResponse.builder()
@@ -83,5 +82,32 @@ public class CustomerController {
 						.statusCode(HttpStatus.OK.value())
 						.build()
 		);
+	}
+
+	@PostMapping("customers/add")
+	ResponseEntity<HttpResponse> addEmployee(@RequestBody
+										 @Validated
+										 CustomerAddRequest customerAddRequest){
+		Customer customer = customerService.addCustomer(customerAddRequest);
+		return ResponseEntity.ok().body(
+				HttpResponse.builder()
+						.timeStamp(LocalDateTime.now().toString())
+						.data(Map.of("customer", customer))
+						.message("Customer created")
+						.status(HttpStatus.CREATED)
+						.statusCode(HttpStatus.CREATED.value())
+						.build());
+	}
+
+	@DeleteMapping("customers/delete/{id}")
+	ResponseEntity<HttpResponse> deleteEmployeeById(@PathVariable("id") Long id) {
+		String deleteMessage = customerService.deleteCustomerById(id);
+		return ResponseEntity.ok().body(
+				HttpResponse.builder()
+						.timeStamp(LocalDateTime.now().toString())
+						.message(deleteMessage)
+						.status(HttpStatus.OK)
+						.statusCode(HttpStatus.OK.value())
+						.build());
 	}
 }

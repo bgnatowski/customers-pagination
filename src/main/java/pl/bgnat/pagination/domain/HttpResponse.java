@@ -8,11 +8,10 @@ import java.util.Map;
 
 @Builder
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-public record HttpResponse(
-		String timeStamp,
-		int statusCode,
-		HttpStatus status,
-		String message,
-		Map<?,?> data
-) {
+public record HttpResponse(String timeStamp,
+						   int statusCode,
+						   HttpStatus status,
+						   String message,
+						   Map<?, ?> data) {
+
 }
