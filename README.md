@@ -1,9 +1,9 @@
 # customers-pagination
 
-Simple project for learning Angular purposes.
+Simple CRUD project for learning Angular purposes.
 
 ### Frontend:
-- Bootstrap + Angular
+- Bootstrap 5 + Angular 16
 
 ### Backend
 - Java 17
