@@ -15,31 +15,42 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @JsonIgnoreProperties
 
-@Table(name = "Customer")
-@Entity(name = "customer")
+
+@Entity(name = "Customer")
+@Table(name = "customer",
+		uniqueConstraints = {
+				@UniqueConstraint(
+						name = "customer_username_constraint",
+						columnNames = "username"
+				),
+				@UniqueConstraint(
+						name = "customer_email_constraint",
+						columnNames = "email"
+				)
+		})
 public class Customer {
 	@Id
 	@SequenceGenerator(name = "customer_id_generator", sequenceName = "customer_id_generator", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_id_generator")
-	@Column(name = "id")
+	@Column(name = "id", nullable = false)
 	private Long id;
-	@Column(name = "first_name")
+	@Column(name = "first_name", nullable = false)
 	private String firstName;
-	@Column(name = "last_name")
+	@Column(name = "last_name", nullable = false)
 	private String lastName;
-	@Column(name = "username")
+	@Column(name = "username", unique = true)
 	private String username;
 	@Column(name = "gender")
 	private String gender;
-	@Column(name = "date_of_birth", columnDefinition = "date")
+	@Column(name = "date_of_birth", columnDefinition = "date", nullable = false)
 	private LocalDate dateOfBirth;
-	@Column(name = "email")
+	@Column(name = "email", unique = true)
 	private String email;
-	@Column(name = "status")
+	@Column(name = "status", nullable = false)
 	private String status;
-	@Column(name = "address")
+	@Column(name = "address", nullable = false)
 	private String address;
-	@Column(name = "phone")
+	@Column(name = "phone", nullable = false)
 	private String phone;
 	@Column(name = "image_url")
 	private String imageUrl;

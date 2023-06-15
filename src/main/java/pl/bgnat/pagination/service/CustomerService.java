@@ -37,9 +37,9 @@ public class CustomerService {
 	public Customer updateCustomer(Long id, CustomerUpdateRequest updateRequest) {
 		log.info("Updating customer: {}", updateRequest);
 		// TODO: for JPA use .getReferenceById(customerId) as it does does not bring object into memory and instead a reference
-		Customer customer = customerRepository.findById(id)
-				.orElseThrow(() -> new CustomerNotFoundException(id));
-//		Customer referenceById = customerRepository.getReferenceById(id);
+//		Customer customer = customerRepository.findById(id)
+//				.orElseThrow(() -> new CustomerNotFoundException(id));
+		Customer customer = customerRepository.getReferenceById(id);
 		boolean changes = false;
 
 		if (updateRequest.firstName() != null && !updateRequest.firstName().equals(customer.getFirstName())) {
@@ -51,6 +51,7 @@ public class CustomerService {
 			changes = true;
 		}
 		if (updateRequest.username() != null && !updateRequest.username().equals(customer.getUsername())) {
+			checkIfUsernameIsNotTaken(updateRequest.username());
 			customer.setUsername(updateRequest.username());
 			changes = true;
 		}
@@ -75,11 +76,7 @@ public class CustomerService {
 			changes = true;
 		}
 		if (updateRequest.email() != null && !updateRequest.email().equals(customer.getEmail())) {
-			if (customerRepository.existsCustomerByEmail(updateRequest.email())) {
-				throw new DuplicateResourceException(
-						"email already taken"
-				);
-			}
+			checkIfEmailIsNotTaken(updateRequest.email());
 			customer.setEmail(updateRequest.email());
 			changes = true;
 		}
@@ -100,6 +97,8 @@ public class CustomerService {
 
 	public Customer addCustomer(CustomerAddRequest customerAddRequest) {
 		validAddRequest(customerAddRequest);
+		checkIfUsernameIsNotTaken(customerAddRequest.username());
+		checkIfEmailIsNotTaken(customerAddRequest.email());
 		Customer customer = createCustomer(customerAddRequest);
 		return customerRepository.save(customer);
 	}
@@ -118,6 +117,17 @@ public class CustomerService {
 
 	private boolean isExistById(Long id) {
 		return customerRepository.existsById(id);
+	}
+
+	private void checkIfEmailIsNotTaken(String email) {
+		if (customerRepository.existsCustomerByEmail(email)) {
+			throw new DuplicateResourceException(String.format("email: %s is already taken", email));
+		}
+	}
+	private void checkIfUsernameIsNotTaken(String username) {
+		if (customerRepository.existsCustomerByUsername(username)) {
+			throw new DuplicateResourceException(String.format("username: %s is already taken", username));
+		}
 	}
 
 	private static Customer createCustomer(CustomerAddRequest customerAddRequest) {
