@@ -94,9 +94,7 @@ public class CustomerService {
 				() -> new CustomerNotFoundException(id));
 	}
 
-
 	public Customer addCustomer(CustomerAddRequest customerAddRequest) {
-		validAddRequest(customerAddRequest);
 		checkIfUsernameIsNotTaken(customerAddRequest.username());
 		checkIfEmailIsNotTaken(customerAddRequest.email());
 		Customer customer = createCustomer(customerAddRequest);
@@ -143,20 +141,6 @@ public class CustomerService {
 				.imageUrl(customerAddRequest.imageUrl())
 				.status(Status.ACTIVE.name())
 				.build();
-	}
-
-	private void validAddRequest(CustomerAddRequest addRequest) {
-		if (Stream.of(addRequest.firstName(),
-						addRequest.lastName(),
-						addRequest.username(),
-						addRequest.gender(),
-						addRequest.dateOfBirth(),
-						addRequest.email(),
-						addRequest.phone(),
-						addRequest.imageUrl())
-				.anyMatch(Objects::isNull)) {
-			throw new RequestValidationException(addRequest.toString());
-		}
 	}
 
 }

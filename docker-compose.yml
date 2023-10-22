@@ -1,16 +1,16 @@
 services:
   db:
-    container_name: pagination-angular-postgres
-    image: postgres
+    container_name: postgres-db-employee-manager-pagination
+    image: postgres:15-alpine
     environment:
-      POSTGRES_USER: postgres
+      POSTGRES_DB: employee-db
+      POSTGRES_USER: bgnat
       POSTGRES_PASSWORD: password
       PGDATA: /data/postgres
-      POSTGRES_DB: pagination
     volumes:
-      - db:/data/postgres
+      - ./employee-db:/data/postgres
     ports:
-      - "5433:5432"
+      - "5432:5432"
     networks:
       - db
     restart: unless-stopped

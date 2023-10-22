@@ -1,6 +1,7 @@
 package pl.bgnat.pagination.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,26 +35,34 @@ public class Customer {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_id_generator")
 	@Column(name = "id", nullable = false)
 	private Long id;
-	@Column(name = "first_name", nullable = false)
+
+	@Column(name = "first_name", columnDefinition = "TEXT", nullable = false)
 	private String firstName;
-	@Column(name = "last_name", nullable = false)
+
+	@Column(name = "last_name", columnDefinition = "TEXT", nullable = false)
 	private String lastName;
-	@Column(name = "username", unique = true)
+
+	@Column(name = "username", columnDefinition = "TEXT", unique = true, nullable = false)
 	private String username;
+
 	@Column(name = "gender")
 	private String gender;
+
 	@Column(name = "date_of_birth", columnDefinition = "date", nullable = false)
 	private LocalDate dateOfBirth;
-	@Column(name = "email", unique = true)
+
+	@Column(name = "email", columnDefinition = "TEXT", nullable = false, unique = true)
 	private String email;
+
 	@Column(name = "status", nullable = false)
 	private String status;
+
 	@Column(name = "address", nullable = false)
 	private String address;
+
 	@Column(name = "phone", nullable = false)
 	private String phone;
+
 	@Column(name = "image_url")
 	private String imageUrl;
-
-
 }

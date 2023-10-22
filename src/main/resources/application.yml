@@ -1,8 +1,8 @@
 spring:
   dataSource:
-    url: jdbc:postgresql://localhost:5433/pagination
+    url: jdbc:postgresql://localhost:5432/employee-db
     driverClassName: org.postgresql.Driver
-    username: postgres
+    username: bgnat
     password: password
   jpa:
     hibernate:

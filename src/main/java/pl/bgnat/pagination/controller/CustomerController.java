@@ -1,10 +1,10 @@
 package pl.bgnat.pagination.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.bgnat.pagination.domain.*;
 import pl.bgnat.pagination.service.CustomerService;
@@ -85,9 +85,7 @@ public class CustomerController {
 	}
 
 	@PostMapping("customers/add")
-	ResponseEntity<HttpResponse> addEmployee(@RequestBody
-										 @Validated
-										 CustomerAddRequest customerAddRequest){
+	ResponseEntity<HttpResponse> addEmployee(@RequestBody @Valid CustomerAddRequest customerAddRequest){
 		Customer customer = customerService.addCustomer(customerAddRequest);
 		return ResponseEntity.ok().body(
 				HttpResponse.builder()

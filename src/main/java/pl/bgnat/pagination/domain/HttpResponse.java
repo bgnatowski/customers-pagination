@@ -13,5 +13,4 @@ public record HttpResponse(String timeStamp,
 						   HttpStatus status,
 						   String message,
 						   Map<?, ?> data) {
-
 }
