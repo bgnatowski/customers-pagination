@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>pl.bgnat</groupId>
-    <artifactId>pagination</artifactId>
+    <artifactId>customer-pagination-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>pagination</name>
     <description>pagination</description>
@@ -51,7 +51,17 @@
     </dependencies>
 
     <build>
+        <finalName>backend-customer-pagination</finalName>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.0</version> <!-- Aktualna wersja obsługująca Javę 17 -->
+                <configuration>
+                    <source>17</source>
+                    <target>17</target>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

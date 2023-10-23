@@ -1,8 +1,6 @@
 spring:
-  profiles:
-    active: ${SPRING_PROFILES_ACTIVE}
   dataSource:
-    url: jdbc:postgresql://localhost:5432/employee-db
+    url: jdbc:postgresql://postgres-db-employee-manager-pagination:5432/employee-db
     driverClassName: org.postgresql.Driver
     username: bgnat
     password: password
@@ -45,6 +43,4 @@ management:
 
 data:
   file:
-    path: src/main/resources/data.txt
-
-
+    path: /app/data.txt

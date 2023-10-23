@@ -1,4 +1,24 @@
+version: '3.8'
+
 services:
+  backend:
+    container_name: backend-employee-manager-pagination
+    image: bgnatowski/customer-pagination-backend:v1
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    restart: always
+  frontend:
+    container_name: frontend-employee-manager-pagination
+    image: bgnatowski/customer-pagination-frontend:v1
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+      - db
   db:
     container_name: postgres-db-employee-manager-pagination
     image: postgres:15-alpine
@@ -11,14 +31,7 @@ services:
       - ./employee-db:/data/postgres
     ports:
       - "5432:5432"
-    networks:
-      - db
     restart: unless-stopped
-
-networks:
-  db:
-    driver: bridge
 
 volumes:
   db:
-
