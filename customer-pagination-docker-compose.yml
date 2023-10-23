@@ -10,7 +10,7 @@ services:
       - "8080:8080"
     depends_on:
       - db
-    restart: always
+    restart: "on-failure"
   frontend:
     container_name: frontend-employee-manager-pagination
     image: bgnatowski/customer-pagination-frontend:v1
@@ -19,6 +19,7 @@ services:
     depends_on:
       - backend
       - db
+    restart: "on-failure"
   db:
     container_name: postgres-db-employee-manager-pagination
     image: postgres:15-alpine

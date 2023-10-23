@@ -85,7 +85,7 @@ public class CustomerController {
 	}
 
 	@PostMapping("customers/add")
-	ResponseEntity<HttpResponse> addEmployee(@RequestBody @Valid CustomerAddRequest customerAddRequest){
+	ResponseEntity<HttpResponse> addCustomer(@RequestBody @Valid CustomerAddRequest customerAddRequest){
 		Customer customer = customerService.addCustomer(customerAddRequest);
 		return ResponseEntity.ok().body(
 				HttpResponse.builder()
@@ -98,7 +98,7 @@ public class CustomerController {
 	}
 
 	@DeleteMapping("customers/delete/{id}")
-	ResponseEntity<HttpResponse> deleteEmployeeById(@PathVariable("id") Long id) {
+	ResponseEntity<HttpResponse> deleteCustomerById(@PathVariable("id") Long id) {
 		String deleteMessage = customerService.deleteCustomerById(id);
 		return ResponseEntity.ok().body(
 				HttpResponse.builder()
