@@ -3,7 +3,7 @@ version: '3.8'
 services:
   backend:
     container_name: backend-employee-manager-pagination
-    image: bgnatowski/customer-pagination-backend:v1
+    image: bgnatowski/customer-pagination-backend:v1 # v1 - windows / v2 - macos
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     ports:
@@ -13,7 +13,7 @@ services:
     restart: "on-failure"
   frontend:
     container_name: frontend-employee-manager-pagination
-    image: bgnatowski/customer-pagination-frontend:v1
+    image: bgnatowski/customer-pagination-frontend:v1 # v1 - windows / v2 - macos
     ports:
       - "4200:80"
     depends_on:

@@ -14,6 +14,8 @@ Simple CRUD project for learning Angular purposes.
 
 You can easily start-up this up on Docker container via docker-compose:
 
+**_`!!! If you are using MacOs on Apple Silicon you should change images versions from v1 to v2 in customer-pagination-docker-compose.yml`_**
+
 ```
  docker compose -f .\customer-pagination-docker-compose.yml up -d
 ```
